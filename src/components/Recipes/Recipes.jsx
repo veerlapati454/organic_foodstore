@@ -44,7 +44,7 @@ const RECIPES = [
     id: 4,
     title: "Roasted Squash & Sage Risotto",
     description: "Creamy arborio rice slow-cooked with roasted squash and crisped sage leaves",
-    image: ye1,
+    image: ye14,
     prepTime: "50 mins",
     difficulty: "Medium",
     tags: ["Vegetarian", "Gluten-Free"],

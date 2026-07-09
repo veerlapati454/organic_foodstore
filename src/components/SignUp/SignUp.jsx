@@ -107,14 +107,7 @@ function SignUp() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      setIsLoading(true);
-      setTimeout(() => {
-        setIsLoading(false);
-        navigate("/user-dashboard");
-      }, 1500);
-    }
+    navigate("/404")
   };
 
   const socialLogins = [
