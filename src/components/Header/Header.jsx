@@ -39,10 +39,10 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  /* Header switches to a solid/light-contrast style on any page
-     that isn't the dark-hero homepage, so text never blends
-     into a light background underneath it. */
-  const isHome = location.pathname === "/";
+  /* Header always uses the solid/light-contrast pill style, on every
+     page including the homepage — so the nav looks identical across
+     the whole site instead of switching to a transparent variant
+     over the hero image. */
 
   const navLinks = [
     { name: "Home",           path: "/" },
@@ -72,7 +72,7 @@ export default function Header() {
   return (
     <>
       {/* ── Main header bar ── */}
-      <header className={`eh-header${isHome ? "" : " eh-header--solid"}`}>
+      <header className="eh-header eh-header--solid">
 
         {/* Logo — uses your imported stackly_logo.webp */}
         <Link to="/" className="eh-logo-wrapper" aria-label="Home">
@@ -145,7 +145,7 @@ export default function Header() {
               {link.name}
             </Link>
           ))}
-          <Link to="/shop" className="eh-mobile-cta" onClick={closeMenu}>
+          <Link to="/login" className="eh-mobile-cta" onClick={closeMenu}>
             Visit the Stall <ArrowUpRight />
           </Link>
         </div>

@@ -16,8 +16,7 @@ import SignUp from "./components/SignUp/SignUp";
 import UserDashboard from "./components/UserDashboard/UserDashboard";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import NotFound from "./components/NotFound/NotFound";
-
-
+import "./App.css"
 function App() {
   return (
     <HashRouter>
