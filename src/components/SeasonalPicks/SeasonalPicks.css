@@ -1,0 +1,228 @@
+.sp-page {
+  background: #f8f6f0;
+  min-height: 100vh;
+}
+
+/* Season Selector */
+.sp-season-selector {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  background: #fff;
+  position: sticky;
+  top: 80px;
+  z-index: 10;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+  flex-wrap: wrap;
+}
+
+.sp-season-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.5rem;
+  border: 2px solid #ddd;
+  border-radius: 50px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Courier New', monospace;
+  color: #333;
+}
+
+.sp-season-btn.active {
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.sp-season-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  opacity: 0.85;
+}
+
+.sp-season-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Hero Section */
+.sp-hero {
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.sp-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.1);
+  z-index: 0;
+}
+
+.sp-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.sp-hero-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 300;
+  margin-bottom: 1rem;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.2);
+}
+
+.sp-hero-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.sp-progress-bar {
+  width: 100%;
+  max-width: 400px;
+  height: 6px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 10px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.sp-progress-fill {
+  height: 100%;
+  background: #fff;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+/* Produce Grid */
+.sp-grid-section {
+  padding: 4rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.sp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.sp-produce-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sp-produce-image {
+  position: relative;
+  padding-top: 75%;
+  overflow: hidden;
+}
+
+.sp-produce-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.sp-produce-card:hover .sp-produce-image img {
+  transform: scale(1.08);
+}
+
+.sp-produce-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+}
+
+.sp-produce-days {
+  color: #fff;
+  font-size: 0.8rem;
+  font-family: 'Courier New', monospace;
+  background: rgba(255,255,255,0.2);
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.sp-produce-info {
+  padding: 1.5rem;
+}
+
+.sp-produce-name {
+  font-size: 1.1rem;
+  color: #1a2a0e;
+}
+
+.sp-produce-note {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+.sp-produce-tag {
+  margin-top: 0.8rem;
+  font-size: 0.8rem;
+  color: #2d5016;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.03em;
+}
+
+/* Storage & Pairing Section */
+.sp-info-section {
+  padding: 2rem 2rem 5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sp-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.sp-info-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  border-left: 4px solid #2d5016;
+}
+
+.sp-info-label {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2d5016;
+  margin-bottom: 0.8rem;
+}
+
+.sp-info-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
