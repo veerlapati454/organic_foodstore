@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 import "./SignUp.css";
 
 function SignUp() {
@@ -44,8 +45,14 @@ function SignUp() {
       [name]: type === "checkbox" ? checked : processedValue,
     });
 
+    // Clear error when user starts typing or checking
     if (errors[name]) {
       setErrors({ ...errors, [name]: "" });
+    }
+    
+    // Clear terms error when checkbox is checked
+    if (name === "agreeTerms" && checked) {
+      setErrors({ ...errors, agreeTerms: "" });
     }
   };
 
@@ -97,9 +104,9 @@ function SignUp() {
       newErrors.confirmPassword = "Passwords do not match";
     }
 
-    // Terms validation
+    // Terms validation - CRITICAL: This prevents submission
     if (!formData.agreeTerms) {
-      newErrors.agreeTerms = "You must agree to the terms";
+      newErrors.agreeTerms = "You must accept the Terms of Service and Privacy Policy";
     }
 
     setErrors(newErrors);
@@ -107,7 +114,26 @@ function SignUp() {
   };
 
   const handleSubmit = (e) => {
-    navigate("/404")
+    e.preventDefault(); // This prevents the default form submission
+    
+    // Run validation
+    const isValid = validateForm();
+    
+    // If validation fails, stop here - do NOT navigate
+    if (!isValid) {
+      console.log("Validation failed - check errors:", errors);
+      return;
+    }
+
+    // If we reach here, all validations passed including terms
+    setIsLoading(true);
+    
+    // Simulate loading state before navigation
+    setTimeout(() => {
+      setIsLoading(false);
+      // Only navigate to 404 when ALL validations pass
+      navigate("/404");
+    }, 800);
   };
 
   const socialLogins = [
@@ -244,9 +270,11 @@ function SignUp() {
                 <button
                   type="button"
                   className="signup-password-toggle"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  aria-pressed={showPassword}
                 >
-                  {showPassword ? "Hide" : "Show"}
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
               {errors.password && (
@@ -282,9 +310,11 @@ function SignUp() {
                 <button
                   type="button"
                   className="signup-password-toggle"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                  aria-pressed={showConfirmPassword}
                 >
-                  {showConfirmPassword ? "Hide" : "Show"}
+                  {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
               {errors.confirmPassword && (
@@ -297,35 +327,29 @@ function SignUp() {
 
             {/* Terms & Updates */}
             <div className="signup-checkboxes">
-              <label className="signup-checkbox">
-                <input
-                  type="checkbox"
-                  name="agreeTerms"
-                  checked={formData.agreeTerms}
-                  onChange={handleChange}
-                />
-                <span>
-                  I agree to the{" "}
-                  <Link to="/terms" className="signup-link">Terms of Service</Link>
-                  {" "}and{" "}
-                  <Link to="/privacy" className="signup-link">Privacy Policy</Link>
-                </span>
-              </label>
-              {errors.agreeTerms && (
-                <span className="signup-error">{errors.agreeTerms}</span>
-              )}
+              <div className="signup-checkbox-wrapper">
+                <label className="signup-checkbox">
+                  <input
+                    type="checkbox"
+                    name="agreeTerms"
+                    checked={formData.agreeTerms}
+                    onChange={handleChange}
+                  />
+                  <span>
+                    I agree to the{" "}
+                    <Link to="/terms" className="signup-link">Terms of Service</Link>
+                    {" "}and{" "}
+                    <Link to="/privacy" className="signup-link">Privacy Policy</Link>
+                  </span>
+                </label>
+                {errors.agreeTerms && (
+                  <span className="signup-error signup-error--terms">
+                    ⚠️ {errors.agreeTerms}
+                  </span>
+                )}
+              </div>
 
-              <label className="signup-checkbox">
-                <input
-                  type="checkbox"
-                  name="receiveUpdates"
-                  checked={formData.receiveUpdates}
-                  onChange={handleChange}
-                />
-                <span>
-                  Receive weekly farm updates and seasonal recipes
-                </span>
-              </label>
+              
             </div>
 
             {/* Submit Button */}

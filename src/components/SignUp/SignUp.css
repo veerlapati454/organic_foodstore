@@ -222,7 +222,7 @@
 }
 
 .signup-input--with-toggle {
-  padding-right: 4.5rem;
+  padding-right: 3rem;
 }
 
 .signup-input:focus {
@@ -243,6 +243,26 @@
 
 .signup-input::placeholder {
   color: #a0a0a0;
+}
+
+/* ── Hide native browser password reveal/clear icons ──
+   Edge/Chrome inject their own built-in eye icon inside
+   password inputs, which stacks on top of our custom toggle. */
+.signup-input[type="password"]::-ms-reveal,
+.signup-input[type="password"]::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.signup-input[type="password"]::-webkit-textfield-decoration-container,
+.signup-input[type="password"]::-webkit-credentials-auto-fill-button,
+.signup-input[type="password"]::-webkit-strong-password-auto-fill-button {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
 }
 
 /* ── Character Count ── */
@@ -270,26 +290,39 @@
   border-left-color: #4a7c2e;
 }
 
-/* ── Password Toggle ── */
+/* ── Password Toggle (icon-only) ── */
 .signup-password-toggle {
   position: absolute;
   right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
   background: rgba(0, 0, 0, 0.04);
   border: none;
   cursor: pointer;
-  font-size: 0.75rem;
-  font-weight: 600;
   color: #4a7c2e;
-  opacity: 0.9;
+  opacity: 0.85;
   transition: opacity 0.3s ease, background 0.3s ease;
-  padding: 0.4rem 0.7rem;
-  border-radius: 8px;
-  min-height: 32px;
+  padding: 0;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .signup-password-toggle:hover {
   opacity: 1;
   background: rgba(0, 0, 0, 0.08);
+}
+
+.signup-password-toggle:focus-visible {
+  outline: 2px solid #4a7c2e;
+  outline-offset: 2px;
+}
+
+.signup-password-toggle svg {
+  pointer-events: none;
+  display: block;
 }
 
 /* ── Password Strength ── */
@@ -505,6 +538,33 @@
   margin: 0;
 }
 
+/* ── Terms Error Styling ── */
+.signup-checkbox-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.signup-error--terms {
+  font-size: 0.8rem;
+  color: #e74c3c;
+  font-weight: 500;
+  animation: slideDown 0.3s ease;
+  padding-left: 2rem;
+  margin-top: 0.1rem;
+}
+
+/* Style the checkbox when there's an error */
+.signup-checkbox-wrapper .signup-checkbox input[type="checkbox"] {
+  border-color: #e74c3c;
+}
+
+@media (prefers-color-scheme: dark) {
+  .signup-error--terms {
+    color: #e74c3c;
+  }
+}
+
 .signup-footer-link {
   color: #4a7c2e;
   text-decoration: none;
@@ -549,15 +609,6 @@
 @media (max-width: 400px) {
   .signup-checkbox {
     font-size: 0.8rem;
-  }
-
-  .signup-input--with-toggle {
-    padding-right: 4rem;
-  }
-
-  .signup-password-toggle {
-    font-size: 0.7rem;
-    padding: 0.35rem 0.55rem;
   }
 }
 

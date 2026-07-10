@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Footer.css";
-import logo from "../../assets/stackly.webp"
+import logo from "../../assets/stackly_logo.webp"
 
 /* ============================================================
    Stackly — Site Footer (Organic Food Store)
@@ -137,7 +137,7 @@ export default function Footer({ logoSrc = LOGO_SRC, logoAlt = "Stackly" }) {
           {/* Logo */}
           <div
             className="ef-logo liquid-glass"
-            onClick={goTo404}
+            onClick={()=>navigate("/")}
             style={{ cursor: "pointer" }}
             role="button"
             tabIndex={0}

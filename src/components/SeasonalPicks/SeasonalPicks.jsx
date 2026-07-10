@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { ScrollReveal } from "../Shared";
 import "./SeasonalPicks.css";
 import yc1 from "../../assets/yc1.webp"
@@ -27,7 +28,6 @@ import yd10 from "../../assets/yd10.webp"
 import yd11 from "../../assets/yd11.webp"
 import yd12 from "../../assets/yd12.webp"
 
-
 const SEASONAL_DATA = {
   summer: {
     name: "Summer Harvest",
@@ -53,11 +53,11 @@ const SEASONAL_DATA = {
     storageTip: "Store winter squash in a cool, dry place — they'll keep for months uncut.",
     pairing: "Roasted squash with cranberry glaze, apple crisp, cinnamon-spiced pumpkin soup.",
     produce: [
-      { name: "Pumpkins", image:  yc7, days: "Peak: Sept-Oct", note: "Sugar pumpkins are best for cooking, not carving" },
-      { name: "Apples", image:  yc8, days: "Peak: Sept-Nov", note: "Store in the fridge to keep crisp for weeks" },
-      { name: "Butternut Squash", image:  yc9, days: "Peak: Oct-Nov", note: "Flavor deepens after a few weeks of storage" },
+      { name: "Pumpkins", image: yc7, days: "Peak: Sept-Oct", note: "Sugar pumpkins are best for cooking, not carving" },
+      { name: "Apples", image: yc8, days: "Peak: Sept-Nov", note: "Store in the fridge to keep crisp for weeks" },
+      { name: "Butternut Squash", image: yc9, days: "Peak: Oct-Nov", note: "Flavor deepens after a few weeks of storage" },
       { name: "Cranberries", image: yc10, days: "Peak: Oct-Nov", note: "Freeze extras — they keep well for a year" },
-      { name: "Pears", image:  yc11, days: "Peak: Sept-Oct", note: "Ripen on the counter, then chill to slow it down" },
+      { name: "Pears", image: yc11, days: "Peak: Sept-Oct", note: "Ripen on the counter, then chill to slow it down" },
       { name: "Brussels Sprouts", image: yc12, days: "Peak: Sept-Nov", note: "Smaller sprouts are sweeter and less bitter" },
     ]
   },
@@ -70,7 +70,7 @@ const SEASONAL_DATA = {
     pairing: "Braised kale with garlic, citrus and fennel salad, root vegetable stew.",
     produce: [
       { name: "Kale", image: yd1, days: "Peak: Nov-Feb", note: "A frost actually sweetens the leaves" },
-      { name: "Winter Squash", image:yd2 , days: "Peak: Nov-Jan", note: "Roast with the skin on for easy prep" },
+      { name: "Winter Squash", image: yd2, days: "Peak: Nov-Jan", note: "Roast with the skin on for easy prep" },
       { name: "Citrus", image: yd3, days: "Peak: Dec-Feb", note: "Heavier fruit means juicier segments" },
       { name: "Leeks", image: yd4, days: "Peak: Dec-Feb", note: "Rinse well between layers to remove grit" },
       { name: "Fennel", image: yd5, days: "Peak: Nov-Jan", note: "The fronds work well as a fresh herb garnish" },
@@ -78,10 +78,10 @@ const SEASONAL_DATA = {
     ]
   },
   spring: {
-    name: "Spring Harvest",
+    name: "SPRING HARVEST",
     label: "SPR",
-    color: "#66bb6a",
-    bg: "linear-gradient(135deg, #66bb6a 0%, #2e7d32 100%)",
+    color: "#e65100",
+    bg: "linear-gradient(135deg, #ff8f00 0%, #e65100 100%)",
     storageTip: "Trim asparagus ends and stand upright in water like cut flowers.",
     pairing: "Shaved asparagus salad, strawberry shortcake, spring pea risotto.",
     produce: [
@@ -96,6 +96,7 @@ const SEASONAL_DATA = {
 };
 
 function SeasonalPicks() {
+  const navigate = useNavigate();
   const [season, setSeason] = useState("summer");
   const [timeProgress, setTimeProgress] = useState(0);
 
@@ -107,6 +108,10 @@ function SeasonalPicks() {
   }, []);
 
   const currentData = SEASONAL_DATA[season];
+
+  const handleNavigation = () => {
+    navigate("/404");
+  };
 
   return (
     <div className="sp-page">
@@ -162,9 +167,10 @@ function SeasonalPicks() {
                   boxShadow: "0 20px 60px rgba(0,0,0,0.15)"
                 }}
                 transition={{ type: "spring", stiffness: 300 }}
+                onClick={handleNavigation}
               >
                 <div className="sp-produce-image">
-                  <img src={item.image} alt={item.name} />
+                  <img src={item.image} alt={item.name} loading="lazy" />
                   <div className="sp-produce-overlay">
                     <span className="sp-produce-days">{item.days}</span>
                   </div>
@@ -184,13 +190,13 @@ function SeasonalPicks() {
       <section className="sp-info-section">
         <div className="sp-info-grid">
           <ScrollReveal>
-            <div className="sp-info-card">
+            <div className="sp-info-card" onClick={handleNavigation} style={{ cursor: 'pointer' }}>
               <span className="sp-info-label">Storage Tip</span>
               <p className="sp-info-text">{currentData.storageTip}</p>
             </div>
           </ScrollReveal>
           <ScrollReveal delay={0.15}>
-            <div className="sp-info-card">
+            <div className="sp-info-card" onClick={handleNavigation} style={{ cursor: 'pointer' }}>
               <span className="sp-info-label">Pairs Well With</span>
               <p className="sp-info-text">{currentData.pairing}</p>
             </div>

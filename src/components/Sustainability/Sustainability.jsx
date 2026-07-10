@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ScrollReveal } from "../Shared";
+import { useNavigate } from "react-router-dom";
 import "./Sustainability.css";
 import ye6 from "../../assets/ye6.webp"
 import ye7 from "../../assets/ye7.webp"
@@ -44,10 +45,16 @@ const CERTIFICATIONS = [
 ];
 
 function Sustainability() {
+  const navigate = useNavigate();
+
+  const handleNavigation = () => {
+    navigate("/404");
+  };
+
   return (
     <div className="sus-page">
       {/* Hero */}
-      <section className="sus-hero">
+      <section className="sus-hero" onClick={handleNavigation} style={{ cursor: 'pointer' }}>
         <div className="sus-hero-content">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -73,6 +80,8 @@ function Sustainability() {
               className="sus-practice-card"
               whileHover={{ y: -6 }}
               transition={{ type: "spring", stiffness: 300 }}
+              onClick={handleNavigation}
+              style={{ cursor: 'pointer' }}
             >
               <div className="sus-practice-image">
                 <img src={practice.image} alt={practice.title} />
@@ -97,6 +106,8 @@ function Sustainability() {
               <motion.div
                 className="sus-cert-item"
                 whileHover={{ y: -3 }}
+                onClick={handleNavigation}
+                style={{ cursor: 'pointer' }}
               >
                 <span>{cert}</span>
               </motion.div>

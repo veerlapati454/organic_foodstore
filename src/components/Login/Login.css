@@ -662,6 +662,77 @@
   text-decoration: underline;
 }
 
+/* ── Password Toggle (icon-only) ── */
+.login-input--with-toggle {
+  padding-right: 3rem;
+}
+
+.login-password-toggle {
+  position: absolute;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.04);
+  border: none;
+  cursor: pointer;
+  color: #4a7c2e;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, background 0.3s ease;
+  padding: 0;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.login-password-toggle:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.login-password-toggle:focus-visible {
+  outline: 2px solid #4a7c2e;
+  outline-offset: 2px;
+}
+
+.login-password-toggle svg {
+  pointer-events: none;
+  display: block;
+}
+
+/* ── Hide native browser password reveal/clear icons ──
+   Edge/Chrome inject their own built-in eye icon inside
+   password inputs, which stacks on top of our custom toggle. */
+.login-input[type="password"]::-ms-reveal,
+.login-input[type="password"]::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.login-input[type="password"]::-webkit-textfield-decoration-container,
+.login-input[type="password"]::-webkit-credentials-auto-fill-button,
+.login-input[type="password"]::-webkit-strong-password-auto-fill-button {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
+
+/* ── Dark Mode Support for Password Toggle ── */
+@media (prefers-color-scheme: dark) {
+  .login-password-toggle {
+    background: rgba(255, 255, 255, 0.06);
+    color: #6b9e4a;
+  }
+
+  .login-password-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
 /* ── Responsive ── */
 @media (max-width: 640px) {
   .login-page {

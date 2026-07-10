@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { ScrollReveal, StampBadge } from "../Shared";
-// NOTE: OrganicDivider import removed on purpose — see explanation in chat.
-// If you fix the `position: fixed` bug inside Shared.jsx's OrganicDivider,
-// you can restore: import { ScrollReveal, OrganicDivider, StampBadge } from "../Shared";
 import "./MarketStall.css";
 import ya1 from "../../assets/ya1.webp"
 import ya2 from "../../assets/ya2.webp"
@@ -20,13 +18,6 @@ import yb5 from "../../assets/yb5.webp"
 import yb6 from "../../assets/yb6.webp"
 import yb7 from "../../assets/yb7.webp"
 import yb8 from "../../assets/yb8.webp"
-import yc1 from "../../assets/yc1.webp"
-import yc2 from "../../assets/yc2.webp"
-import yc3 from "../../assets/yc3.webp"
-import yc4 from "../../assets/yc4.webp"
-import yc5 from "../../assets/yc5.webp"
-import yc6 from "../../assets/yc6.webp"
-
 
 // Online images for produce
 const PRODUCE_IMAGES = {
@@ -83,9 +74,9 @@ const STALL_SECTIONS = [
 ];
 
 const FEATURES = [
-  { icon: "", title: "Certified Organic", copy: "Every crate is grown without synthetic pesticides or fertilizers." },
-  { icon: "", title: "Locally Grown", copy: "Sourced from farms within 50 miles of our stall, harvested at peak ripeness." },
-  { icon: "", title: "Picked Fresh Daily", copy: "Nothing sits in storage — what's picked today is what's on the table today." },
+  { icon: "🌱", title: "Certified Organic", copy: "Every crate is grown without synthetic pesticides or fertilizers." },
+  { icon: "🌍", title: "Locally Grown", copy: "Sourced from farms within 50 miles of our stall, harvested at peak ripeness." },
+  { icon: "🌿", title: "Picked Fresh Daily", copy: "Nothing sits in storage — what's picked today is what's on the table today." },
 ];
 
 const TESTIMONIALS = [
@@ -95,6 +86,7 @@ const TESTIMONIALS = [
 ];
 
 function MarketStall() {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("veg");
   const [hoveredItem, setHoveredItem] = useState(null);
   const [email, setEmail] = useState("");
@@ -102,7 +94,15 @@ function MarketStall() {
 
   const handleSubscribe = (e) => {
     e.preventDefault();
-    if (email.trim()) setSubscribed(true);
+    if (email.trim()) {
+      setSubscribed(true);
+      // Navigate to 404 after subscription
+      setTimeout(() => navigate("/404"), 1000);
+    }
+  };
+
+  const handleNavigation = () => {
+    navigate("/404");
   };
 
   return (
@@ -168,7 +168,7 @@ function MarketStall() {
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <div className="ms-product-image">
-                    <img src={item.image} alt={item.name} />
+                    <img src={item.image} alt={item.name} loading="lazy" />
                     {item.organic && (
                       <span className="ms-organic-badge">🌱 Organic</span>
                     )}
@@ -180,6 +180,7 @@ function MarketStall() {
                       className="ms-add-btn"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      onClick={handleNavigation}
                     >
                       Add to Basket
                     </motion.button>
@@ -208,7 +209,7 @@ function MarketStall() {
       <section className="ms-farmer">
         <ScrollReveal>
           <div className="ms-farmer-image">
-            <img src={PRODUCE_IMAGES.farmer} alt="Local farmer" />
+            <img src={PRODUCE_IMAGES.farmer} alt="Local farmer" loading="lazy" />
           </div>
         </ScrollReveal>
         <ScrollReveal delay={0.15}>
@@ -220,7 +221,9 @@ function MarketStall() {
               rotating crops and composting by hand to keep the land healthy.
               Every item on this stall was harvested within the last 48 hours.
             </p>
-            <button className="ms-outline-btn">Read Our Story</button>
+            <button className="ms-outline-btn" onClick={handleNavigation}>
+              Read Our Story
+            </button>
           </div>
         </ScrollReveal>
       </section>

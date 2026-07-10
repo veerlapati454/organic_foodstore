@@ -72,11 +72,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: black;
+  background: #ffffff;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   overflow: hidden;
   padding: 5px;
+}
+
+/* The logo also carries the global .liquid-glass utility class, which applies
+   its own translucent/blurred background. That rule can win the cascade
+   (loaded after this file, or equal specificity) and wash the white circle
+   back out to a dark glass panel — which is why the logo mark disappears
+   against the dark footer. Pin it down explicitly so it always stays solid
+   white, no matter what .liquid-glass sets elsewhere. */
+.ef-logo.liquid-glass {
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
 }
 
 .ef-logo:hover {
