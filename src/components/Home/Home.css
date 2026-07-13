@@ -902,10 +902,14 @@ html, body {
 }
 .mk-product-add:hover { color: var(--mk-cream); }
 
-/* ===== HOW IT WORKS (staggered ticket stubs) ===== */
+/* ===== HOW IT WORKS (staggered ticket stubs) — CENTERED ===== */
 .mk-how { background: var(--mk-charcoal); }
 
-.mk-how-header { max-width: 560px; margin-bottom: var(--spacing-xxl); }
+.mk-how-header {
+  max-width: 560px;
+  margin: 0 auto var(--spacing-xxl);
+  text-align: center;
+}
 .mk-how-header .mk-eyebrow { color: var(--mk-butter); }
 .mk-how-heading { font-size: var(--font-6xl); color: var(--mk-cream); font-style: italic; line-height: 0.95; }
 @media (max-width: 768px) { .mk-how-heading { font-size: var(--font-4xl); } }
@@ -913,6 +917,7 @@ html, body {
 .mk-how-track {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--spacing-xl) var(--spacing-lg);
 }
 
@@ -920,11 +925,16 @@ html, body {
   flex: 1 1 260px;
   max-width: 340px;
   transform: translateY(calc(var(--i, 0) * 1.75rem));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 @media (max-width: 900px) { .mk-how-step { transform: none; } }
 
 .mk-how-thumb {
   position: relative;
+  width: 100%;
   height: 160px;
   border-radius: 0.75rem;
   background-size: cover;
@@ -942,7 +952,8 @@ html, body {
 .mk-how-number {
   position: absolute;
   bottom: 0.75rem;
-  left: 0.85rem;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1;
   font-size: var(--font-3xl);
   color: var(--mk-butter);
@@ -957,7 +968,7 @@ html, body {
   align-items: center;
   justify-content: center;
   color: var(--mk-butter);
-  margin-bottom: var(--spacing-sm);
+  margin: 0 auto var(--spacing-sm);
 }
 
 .mk-how-title { font-size: var(--font-xl); color: var(--mk-cream); font-style: italic; margin-bottom: 0.4rem; }
